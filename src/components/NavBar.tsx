@@ -1,46 +1,36 @@
 interface Pokemon {
-	name: string;
-	imgSrc?: string;
+    name: string;
+    imgSrc?: string;
 }
 
 interface NavBarProps {
-	pokemonIndex: number;
-	setPokemonIndex: (index: number) => void;
-	pokemonList: Pokemon[];
+    pokemonIndex: number;
+    setPokemonIndex: (index: number) => void;
+    pokemonList: Pokemon[];
 }
 
 // Definindo o componente como uma função normal com as props tipadas
-const NavBar = ({
-	pokemonIndex,
-	setPokemonIndex,
-	pokemonList,
-}: NavBarProps) => {
-	const handlePrev = () => {
-		if (pokemonIndex > 0) {
-			setPokemonIndex(pokemonIndex - 1);
-		}
-	};
+const NavBar = ({ setPokemonIndex, pokemonList }: NavBarProps) => {
+    const handleButtonClick = (index: number) => {
+        setPokemonIndex(index); // Função passada como prop
+        if (pokemonList[index].name.toLowerCase() === 'pikachu') { // Verifica se o Pokémon selecionado é Pikachu
+            alert('pika pikachu !!!'); // Alerta ao selecionar Pikachu
+        } 
+    }; 
 
-	const handleNext = () => {
-		if (pokemonIndex < pokemonList.length - 1) {
-			setPokemonIndex(pokemonIndex + 1);
-		}
-	};
-
-	return (
-		<div>
-			<button type="button" onClick={handlePrev} disabled={pokemonIndex === 0}>
-				Précédent
-			</button>
-			<button
-				type="button"
-				onClick={handleNext}
-				disabled={pokemonIndex === pokemonList.length - 1}
-			>
-				Suivant
-			</button>
-		</div>
-	);
+    return (
+        <div>
+            {pokemonList.map((pokemon, index) => (
+                <button
+                    key={pokemon.name} // Assumindo que cada `name` é único
+                    type="button"
+                    onClick={() => handleButtonClick(index)} // Passando `index` como número
+                >
+                    {pokemon.name}
+                </button>
+            ))}
+        </div>
+    );
 };
 
 export default NavBar;

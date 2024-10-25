@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Combine as importações
 import NavBar from "./components/NavBar"; // Certifique-se de que o caminho está correto
 
 function App() {
   const [pokemonIndex, setPokemonIndex] = useState(0);
+  
+  useEffect(() => {
+    alert('hello pokemon trainer :)'); // Alerta ao iniciar a aplicação
+  }, []); // Dependência vazia para rodar apenas no início
 
   const pokemonList = [
     {
